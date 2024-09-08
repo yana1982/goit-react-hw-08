@@ -1,7 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 import axios from "axios";
 
 const BASE_URL = "https://connections-api.goit.global";
+
+export const notify = () => toast.success("Successfully!");
 
 export const register = createAsyncThunk(
   "auth/register",
