@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../redux/auth/operations";
-import { logOutSuccess } from "../../redux/auth/slice";
 import css from "./UserMenu.module.css";
 
 const UserMenu = () => {
@@ -10,7 +9,6 @@ const UserMenu = () => {
   const handleLogOut = async () => {
     try {
       await dispatch(logOut()).unwrap();
-      dispatch(logOutSuccess());
     } catch (error) {
       console.error(error.message);
     }

@@ -40,24 +40,9 @@ export const login = createAsyncThunk(
 
 export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
-    const state = thunkAPI.getState();
-    const token = state.auth.token;
-
-    if (!token) {
-      return thunkAPI.rejectWithValue("No token found");
-    }
-
-    await axios.post(
-      `/users/logout`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    await axios.post(`/users/logout`);
     clearAuthHeader();
-    localStorage.removeItem("token");
+
     return;
   } catch (error) {
     return thunkAPI.rejectWithValue(
