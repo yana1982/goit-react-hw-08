@@ -2,25 +2,27 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ContactList from "../../components/ContactList/ContactList";
 import ContactForm from "../../components/ContactForm/ContactForm";
-import { refreshUser } from "../../redux/auth/operations";
-import { selectIsLoggedIn } from "../../redux/auth/selectors";
+import { fetchContacts } from "../../redux/contacts/operations";
+import { getIsLoading, getError } from "../../redux/contacts/selectors";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import css from "./ContactsPage.module.css";
 
 const ContactsPage = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoggedIn);
+  const loading = useSelector(getIsLoading);
+  const error = useSelector(getError);
 
   useEffect(() => {
-    dispatch(refreshUser());
+    dispatch(fetchContacts());
   }, [dispatch]);
 
   return (
     <div className={css.wrapper}>
       <h1 className={css.title}>Your contacts</h1>
       <ContactForm />
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
       <SearchBox />
-      <div>{isLoading && "Request in the process of processing"}</div>
       <ContactList />
     </div>
   );

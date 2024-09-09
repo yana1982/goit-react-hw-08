@@ -1,6 +1,6 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { fetchContacts, addContact, deleteContact } from "./operations";
-import { selectNameFilter } from "../filters/selectors";
+
 import { getContacts } from "./selectors";
 
 const handlePending = (state) => {
@@ -47,18 +47,5 @@ const contactsSlice = createSlice({
       .addCase(deleteContact.rejected, handleRejected);
   },
 });
-
-export const selectVisibleContacts = createSelector(
-  [getContacts, selectNameFilter],
-  (contacts, contactFilter) => {
-    console.log("Contacts:", contacts);
-    if (!Array.isArray(contacts)) {
-      return [];
-    }
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(contactFilter.toLowerCase())
-    );
-  }
-);
 
 export const contactsReducer = contactsSlice.reducer;

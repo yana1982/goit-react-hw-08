@@ -19,13 +19,11 @@ const authSlice = createSlice({
       state.user = action.payload.user;
       state.isLoggedIn = true;
       state.token = action.payload.token;
-      localStorage.setItem("token", action.payload.token);
     },
     logOutSuccess: (state) => {
       state.user = null;
       state.isLoggedIn = false;
       state.token = null;
-      localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
@@ -34,19 +32,16 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.isLoggedIn = true;
         state.token = action.payload.token;
-        localStorage.setItem("token", action.payload.token);
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.isLoggedIn = true;
         state.token = action.payload.token;
-        localStorage.setItem("token", action.payload.token);
       })
       .addCase(logOut.fulfilled, (state) => {
         state.user = null;
         state.isLoggedIn = false;
         state.token = null;
-        localStorage.removeItem("token");
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload;
